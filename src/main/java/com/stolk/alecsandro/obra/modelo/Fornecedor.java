@@ -62,4 +62,34 @@ public class Fornecedor extends EntidadeId {
     public void setContatos(List<Contato> contatos) {
         this.contatos = contatos;
     }
+
+    public Fornecedor adicionarConta(Conta conta) {
+        contas.add(conta);
+        return this;
+    }
+
+    public Fornecedor removerConta(Long id) {
+        contas.removeIf(conta -> id.equals(conta.getId()));
+        return this;
+    }
+
+    public void substituirConta(Long id, Conta conta) {
+        removerConta(id);
+        adicionarConta(conta);
+    }
+
+    public Fornecedor adicionarContato(Contato contato) {
+        contatos.add(contato);
+        return this;
+    }
+
+    public Fornecedor removerContato(Long id) {
+        contatos.removeIf(contato -> id.equals(contato.getId()));
+        return this;
+    }
+
+    public void substituirContato(Long id, Contato contato) {
+        removerContato(id);
+        adicionarContato(contato);
+    }
 }

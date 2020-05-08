@@ -1,6 +1,8 @@
 package com.stolk.alecsandro.obra.recurso;
 
 import com.stolk.alecsandro.obra.banco.Dao;
+import com.stolk.alecsandro.obra.modelo.Conta;
+import com.stolk.alecsandro.obra.modelo.Contato;
 import com.stolk.alecsandro.obra.modelo.Fornecedor;
 
 import javax.ws.rs.*;
@@ -85,6 +87,50 @@ public class FornecedorResource {
             dao.encerrar()
                     .fechar();
         }
+        return Response.noContent().build();
+    }
+
+    @POST
+    @Path("{fornecedorId}/contas")
+    public Response postContas(@PathParam("fornecedorId") Long fornecedorId, Conta conta) {
+        Dao<Fornecedor> dao = new Dao<>(Fornecedor.class);
+        Fornecedor fornecedor = dao.buscarUm(fornecedorId);
+        dao.iniciar();
+        fornecedor.adicionarConta(conta);
+        dao.encerrar().fechar();
+        return Response.created(URI.create(String.format("/fornecedores/%s/contas/%s", fornecedorId, conta.getId()))).build();
+    }
+
+    @DELETE
+    @Path("{fornecedorId}/contas/{id}")
+    public Response deleteContas(@PathParam("fornecedorId") Long fornecedorId, @PathParam("id") Long id) {
+        Dao<Fornecedor> dao = new Dao<>(Fornecedor.class);
+        Fornecedor fornecedor = dao.buscarUm(fornecedorId);
+        dao.iniciar();
+        fornecedor.removerConta(id);
+        dao.encerrar().fechar();
+        return Response.noContent().build();
+    }
+
+    @POST
+    @Path("{fornecedorId}/contatos")
+    public Response postContatos(@PathParam("fornecedorId") Long fornecedorId, Contato contato) {
+        Dao<Fornecedor> dao = new Dao<>(Fornecedor.class);
+        Fornecedor fornecedor = dao.buscarUm(fornecedorId);
+        dao.iniciar();
+        fornecedor.adicionarContato(contato);
+        dao.encerrar().fechar();
+        return Response.created(URI.create(String.format("/fornecedores/%s/contatos/%s", fornecedorId, contato.getId()))).build();
+    }
+
+    @DELETE
+    @Path("{fornecedorId}/contatos/{id}")
+    public Response deleteContatos(@PathParam("fornecedorId") Long fornecedorId, @PathParam("id") Long id) {
+        Dao<Fornecedor> dao = new Dao<>(Fornecedor.class);
+        Fornecedor fornecedor = dao.buscarUm(fornecedorId);
+        dao.iniciar();
+        fornecedor.removerContato(id);
+        dao.encerrar().fechar();
         return Response.noContent().build();
     }
 

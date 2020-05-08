@@ -1,5 +1,10 @@
 package com.stolk.alecsandro.obra.modelo;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.stolk.alecsandro.obra.util.LocalDateDeserializer;
+import com.stolk.alecsandro.obra.util.LocalDateSerializer;
+
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
@@ -12,6 +17,8 @@ import static javax.persistence.EnumType.STRING;
 @Table(name = "lancamentos")
 public class Lancamento extends EntidadeId {
 
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate data;
 
     @ManyToOne
@@ -25,6 +32,8 @@ public class Lancamento extends EntidadeId {
 
     private Double valor;
 
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate pagamento;
     private String observacoes;
 
