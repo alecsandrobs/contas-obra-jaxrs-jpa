@@ -9,7 +9,6 @@ import java.util.List;
 public class Dao<E> {
 
     private static EntityManagerFactory emf;
-    //    @PersistenceContext(name = "obra", unitName = "obra")
     private static EntityManager em;
     private Class<E> classe;
 
